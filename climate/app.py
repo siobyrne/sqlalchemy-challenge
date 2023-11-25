@@ -50,3 +50,12 @@ def homepage():
         <li>/api/v1.0/&lt;start_date&gt;/&lt;end_date&gt;</li>
         </ul>
     """
+
+
+
+# close session
+session.close()
+
+# run file
+if __name__ == "__main__":
+    app.run()
