@@ -27,10 +27,26 @@ session = Session(bind=engine)
 #################################################
 # Flask Setup
 #################################################
-
+app = Flask(__name__)
 
 
 
 #################################################
 # Flask Routes
 #################################################
+@app.route("/")
+def homepage():
+    return f"""
+        <h3>Routes:</h3>
+        <ul>
+       <li><a href="/api/v1.0/precipitation">Precipitation</a></li>
+        <li><a href="/api/v1.0/stations">Stations</a></li>
+        <li><a href="/api/v1.0/tobs">TOBS</a></li>
+        </ul>
+        <p>For the bottom two routes, replace <start_date> and
+        <end_date> with a date in the format of YYYY-MM-DD.</p>
+        <ul>
+        <li>/api/v1.0/&lt;start_date&gt;</li>
+        <li>/api/v1.0/&lt;start_date&gt;/&lt;end_date&gt;</li>
+        </ul>
+    """
