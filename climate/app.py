@@ -24,6 +24,9 @@ m = Base.classes.measurement
 # Create our session (link) from Python to the DB
 session = Session(bind=engine)
 
+# add time variable for observational data
+prior_year = dt.date(2017, 8, 23) - dt.timedelta(days=365)
+
 #################################################
 # Flask Setup
 #################################################
@@ -50,6 +53,35 @@ def homepage():
         <li>/api/v1.0/&lt;start_date&gt;/&lt;end_date&gt;</li>
         </ul>
     """
+
+@app.route("/api/v1.0/precipitation")
+def precipitation():
+    rows = session.query(m.date, m.prcp).filter(m.date >= prior_year).order_by(m.date).all()
+    precipitation = {_.date: _.prcp for _ in rows}
+    session.close()
+    return jsonify(precipitation)
+
+@app.route("/api/v1.0/stations")
+def stations():
+    rows = session.query(
+        s.station,
+        s.name,
+        s.latitude,
+        s.longitude,
+        s.elevation,
+    )
+    results = [
+        {
+            "station": _.station,
+            "name": _.name,
+            "latitude": _.latitude,
+            "longitude": _.longitude,
+            "elevation": _.elevation,
+        }
+        for _ in rows
+    ]
+    session.close()
+    return jsonify(results)
 
 
 
