@@ -9,10 +9,10 @@ Images generated from the analysis can be found in the images folder.
 
 ## Charts
 
-![Precipitation](images/precipitation.png)
+![Precipitation](climate/images/precipitation.png)
 
 _Precipitation Observations_
 
-![Temperature Observations](images/temperatures.png)
+![Temperature Observations](climate/images/temperatures.png)
 
 _Temperature Observations_
